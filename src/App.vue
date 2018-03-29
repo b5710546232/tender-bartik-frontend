@@ -27,6 +27,7 @@ export default {
 
 <style lang="scss">
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../static/css/vue-modal.css';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
