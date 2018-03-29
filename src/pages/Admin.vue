@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="float-right print-btn">
-      <button class="btn btn-primary">print statistic</button>
+      <button class="btn btn-outline-primary">print statistic</button>
     </div>
     <table class="table table-bordered">
   <thead>
@@ -19,28 +19,28 @@
       <td>Mark Otto</td>
       <td>Admin</td>
       <td>Computer</td>
-      <td><button class="btn btn-info">manage</button></td>
+      <td><button class="btn btn-outline-info">manage</button></td>
     </tr>
     <tr>
       <th scope="row">2</th>
       <td>Jacob Thornton</td>
       <td>Supervisor</td>
       <td>Computer</td>
-      <td><button class="btn btn-info">manage</button></td>
+      <td><button class="btn btn-outline-info">manage</button></td>
     </tr>
     <tr>
       <th scope="row">3</th>
       <td>Larry the Bird</td>
       <td>Subordinator</td>
       <td>Computer</td>
-      <td><button class="btn btn-info">manage</button></td>
+      <td><button class="btn btn-outline-info">manage</button></td>
     </tr>
   </tbody>
 </table>
-<button class="btn btn-primary float-right">Add user</button>
+<button class="btn btn-outline-primary float-right">Add user</button>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
   .container{
     margin-top:20px;
   }
