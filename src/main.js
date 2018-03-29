@@ -1,4 +1,6 @@
-// import 'bootstrap'
+import 'jquery'
+import 'popper.js'
+import 'bootstrap'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -9,3 +11,5 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+
