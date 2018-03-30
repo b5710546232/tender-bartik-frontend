@@ -19,7 +19,7 @@
       <td>Mark Otto</td>
       <td>Admin</td>
       <td>Computer</td>
-      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" >edit</button></td>
+      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#editUserModal" >edit</button></td>
       
     </tr>
     <tr>
@@ -27,26 +27,29 @@
       <td>Jacob Thornton</td>
       <td>Supervisor</td>
       <td>Computer</td>
-      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" >edit</button></td>
+      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#editUserModal" >edit</button></td>
     </tr>
     <tr>
       <th scope="row">3</th>
       <td>Larry the Bird</td>
       <td>Subordinator</td>
       <td>Computer</td>
-      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModal" >edit</button></td>
+      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#editUserModal" >edit</button></td>
     </tr>
   </tbody>
 </table>
-<button class="btn btn-outline-primary float-right">Add user</button>
-<edit-user id="exampleModal"></edit-user>
+<button class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addUserModal" >Add user</button>
+<edit-user id="editUserModal"></edit-user>
+<add-user id="addUserModal"></add-user>
   </div>
 </template>
 <script>
+import AddUser from '../components/modal/AddUser'
 import EditUser from '../components/modal/EditUser'
 export default {
     components: {
-    EditUser
+    EditUser,
+    AddUser
   }
 }
 </script>
