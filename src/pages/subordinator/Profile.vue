@@ -6,7 +6,7 @@
           <span class="badge badge-secondary">Subordinator</span>
         </h1>
         <div class="col-sm-12 col-sm-12 request-btn">
-          <button type="button" class="btn btn-outline-success float-right">Request leave form</button>
+          <button type="button" class="btn btn-outline-success float-right" data-toggle="modal" data-target="#leaveFormModal">Request leave form</button>
         </div>
       </div>
       <div class="row">
@@ -80,6 +80,7 @@
 
       </div>
     </div>
+    <leave-form id="leaveFormModal"></leave-form>
   </div>
 </template>
 <script>

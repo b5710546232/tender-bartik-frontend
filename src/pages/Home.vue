@@ -16,6 +16,12 @@
                 <button type="button" class="form-btn btn btn-outline-secondary">Create account</button>
             </form>
         </div>
+        <div class="div">
+            <h1>for test  page !</h1>
+             <router-link class="nav-link" to="/admin"><strong>admin</strong></router-link>
+             <router-link class="nav-link" to="/supervisor/profile"><strong>sup-profile</strong></router-link>
+             <router-link class="nav-link" to="/subordinator/profile"><strong>subor-profile</strong></router-link>
+        </div>
     </div>
 </template>
 <style lang="scss" scoped>
