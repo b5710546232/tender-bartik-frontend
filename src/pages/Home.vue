@@ -1,6 +1,7 @@
 <template>
-    <div class="root h-100 d-flex align-items-center">
-        <div class="login-container card container">
+    <div class="root h-100 w-100 d-flex align-items-center justify-content-center flex-column">
+        <h1 class="text-info">Tender-bartik</h1>
+        <div class="login-container card">
             <h2>Login</h2>
             <form>
                 <div class="form-group text-left">
@@ -11,10 +12,35 @@
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 </div>
-                <button type="submit" class="btn btn-outline-primary">Submit</button>
-                <button type="submit" class="btn btn-outline-secondary">Create account</button>
+                <button type="button" class="form-btn btn btn-outline-primary">Submit</button>
+                <button type="button" class="form-btn btn btn-outline-secondary">Create account</button>
             </form>
         </div>
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -22,6 +48,11 @@
     // background: lightblue;
 }
 .login-container{
-    padding:16px;
+    padding:5% 15%;
+    margin:0 10%;
+}
+.form-btn{
+    clear: both;
+    margin-top:16px;
 }
 </style>

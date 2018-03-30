@@ -35,3 +35,10 @@
   </div>
 </nav>
 </template>
+<style lang="scss" scoped>
+.navbar{
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+</style>
+
+
