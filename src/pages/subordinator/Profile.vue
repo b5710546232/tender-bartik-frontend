@@ -5,20 +5,23 @@
         <h1 class="text-left col-md-12">Profile
           <span class="badge badge-secondary">Subordinator</span>
         </h1>
+        <div class="col-sm-12 col-sm-12 request-btn">
+          <button type="button" class="btn btn-outline-success float-right">Request leave form</button>
+        </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-sm-12 col-left">
-          <div class="text-left profile">
+        <div class="col-md-4 col-sm-12">
+          <div class="img-profile">
             <img :src="imgSrc" alt="..." class="rounded">
           </div>
-          <div class="text-left description-profile">
+          <div class="description-profile">
             <div>John Doe</div>
             <div>Department
               <strong>@Computer</strong>
             </div>
           </div>
         </div>
-        <div class="col-md-8 col-sm-12 col-right">
+        <div class="col-md-8 col-sm-12">
           <div class="row">
             <table class="table table-bordered">
               <thead>
@@ -48,11 +51,12 @@
                   <th scope="row">2015-03-25</th>
                   <td>work5</td>
                 </tr>
+
               </tbody>
             </table>
-            <div class="row w-100">
-              <nav class="" aria-label="Page navigation example">
-                <ul class="pagination">
+            <div class="w-100">
+              <nav aria-label="Page navigation example">
+                <ul style="margin-top:0;" class="pagination float-right">
                   <li class="page-item">
                     <a class="page-link" href="#">Previous</a>
                   </li>
@@ -73,8 +77,8 @@
             </div>
           </div>
         </div>
+
       </div>
-      <button type="button" class="btn btn-outline-success float-right">Request leave form</button>
     </div>
   </div>
 </template>
@@ -96,12 +100,23 @@ export default {
 <style lang="scss" scoped>
 .container {
   margin-top: 20px;
+  padding: 0 5%;
 }
-.col-left {
-  // background:red;
+.description-profile {
+  text-align: left;
 }
-.col-right {
-  // background:blue;
+.img-profile {
+  text-align: left;
+}
+.request-btn{
+  margin-bottom:10px;
+  padding:0;
+}
+@media (max-width: 767px) {
+  .img-profile,
+  .description-profile {
+    text-align: center;
+  }
 }
 </style>
 
