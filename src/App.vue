@@ -41,6 +41,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  // background:#E6ECF0
 }
 
 h1,

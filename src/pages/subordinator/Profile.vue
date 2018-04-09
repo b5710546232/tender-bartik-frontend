@@ -2,32 +2,35 @@
   <div class="root">
     <div class="container">
       <div class="row">
-        <h1 class="text-left col-md-12">Profile
-          <span class="badge badge-secondary">Subordinator</span>
-        </h1>
-        <div class="col-sm-12 col-sm-12 request-btn">
-          <button type="button" class="col-md-3 col-sm-12 btn btn-outline-success float-right" data-toggle="modal" data-target="#leaveFormModal">Request leave form</button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-3 col-sm-12 profile-wrapper">
+        <div class="col-md-5 col-sm-12 profile-wrapper">
 
-          <div class="profile">
-            <div class="img-profile">
-              <img :src="imgSrc" alt="..." class="rounded">
-            </div>
-            <div class="description-profile">
-              <div>John Doe</div>
-              <div>Department
-                <strong>@Computer</strong>
+          <div class="col-sm-12" style="padding:0">
+
+            <div class="profile shadow">
+              <h2 class="text-center col-md-12">Profile
+                <span class="badge badge-secondary">Subordinator</span>
+              </h2>
+              <div class="img-profile">
+                <img :src="imgSrc" alt="..." class="rounded">
+              </div>
+              <div class="description-profile">
+                <div>John Doe</div>
+                <div>Department
+                  <strong>@Computer</strong>
+                </div>
               </div>
             </div>
+
+          </div>
+
+          <div class="request-btn">
+            <button type="button" class="col-sm-12 btn btn-outline-success float-right" data-toggle="modal" data-target="#leaveFormModal">Request leave form</button>
           </div>
         </div>
 
-        <div class="col-md-9 col-sm-12 history-wrapper">
-          <div class="row">
+        <div class="col-md-7 col-sm-12 history-wrapper shadow">
+          <div class="row history">
             <div class="col-md-12">
               <h2>History</h2>
             </div>
@@ -44,6 +47,21 @@
                   <td scope="row">2015-03-25</td>
                   <td scope="row">2015-03-25</td>
                   <td>work1</td>
+                </tr>
+                <tr>
+                  <td scope="row">2015-03-25</td>
+                  <td scope="row">2015-03-25</td>
+                  <td>work2</td>
+                </tr>
+                <tr>
+                  <td scope="row">2015-03-25</td>
+                  <td scope="row">2015-03-25</td>
+                  <td>work2</td>
+                </tr>
+                <tr>
+                  <td scope="row">2015-03-25</td>
+                  <td scope="row">2015-03-25</td>
+                  <td>work2</td>
                 </tr>
                 <tr>
                   <td scope="row">2015-03-25</td>
@@ -78,7 +96,9 @@
         </div>
 
       </div>
+
     </div>
+
     <leave-form id="leaveFormModal"></leave-form>
   </div>
 </template>
@@ -109,43 +129,57 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
 .container {
   margin-top: 20px;
   padding: 0 5%;
 }
-.description-profile{
+.description-profile {
   text-align: left;
   margin-left: 1rem;
 }
- .img-profile {
+.img-profile {
   text-align: center;
 }
-.history-wrapper{
-  padding:0 16px;
+
+.profile-wrapper {
+  padding: 0 16px;
 }
-.profile-wrapper{
-  padding:0 16px;
-}
-.history{
+.history {
   padding: 8px;
-  border: solid 1px grey;
+  // border: solid 1px grey;
+  background: white;
 }
 
 .request-btn {
-  margin-bottom: 10px;
+  margin-top: 16px;
   padding: 0;
+  width:100%;
 }
 .profile {
   padding: 8px;
-  border: solid 1px grey;
+  // border: solid 1px grey;
+  background: white;
   text-align: center;
+}
+.bg-white {
+  background: white;
 }
 
 @media (max-width: 767px) {
+  .profile-wrapper {
+    padding: 0;
+    margin-bottom: 16px;
+  }
+  .history-wrapper {
+    margin-bottom: 16px;
+  }
   .img-profile,
   .description-profile {
     text-align: center;
-    margin-left:0;
+    margin-left: 0;
   }
 }
 </style>
