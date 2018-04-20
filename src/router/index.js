@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from '../pages/Home'
 import Admin from '../pages/Admin'
 
+import RegisterPage from '../pages/Register'
 import SubordinatorProfilePage from '../pages/subordinator/Profile'
 import SupervisorProfilePage from '../pages/supervisor/Profile'
 
@@ -21,6 +22,11 @@ export default new Router({
       path: '/admin',
       name: 'Admin',
       component: Admin
+    },
+    {
+      path:'/register',
+      name:'RegisterPage',
+      component:RegisterPage
     },
     {
       path: '/supervisor/profile',
