@@ -19,25 +19,25 @@
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label text-left">Password</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                <input type="password" class="form-control" placeholder="Password">
                             </div>
                         </div>
                          <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label text-left">Confirm password</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                <input type="password" class="form-control"  placeholder="Password">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label text-left">Role</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="inputPassword" placeholder="">
+                                <input type="text" class="form-control"  placeholder="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label text-left">Department</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="inputPassword" placeholder="">
+                                <input type="text" class="form-control"  placeholder="">
                             </div>
                         </div>
                     </form>

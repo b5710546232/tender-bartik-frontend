@@ -7,7 +7,7 @@
 
           <div class="col-sm-12" style="padding:0">
 
-            <div class="profile shadow">
+            <div class="profile card">
               <h2 class="text-center col-md-12">Profile
                 <span class="badge badge-secondary">Subordinator</span>
               </h2>
@@ -29,7 +29,7 @@
           </div>
         </div>
 
-        <div class="col-md-7 col-sm-12 history-wrapper shadow">
+        <div class="col-md-7 col-sm-12 history-wrapper card">
           <div class="row history">
             <div class="col-md-12">
               <h2>History</h2>
@@ -129,9 +129,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.shadow {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
+// .shadow-box{
+//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1);
+// }
 .container {
   margin-top: 20px;
   padding: 0 5%;

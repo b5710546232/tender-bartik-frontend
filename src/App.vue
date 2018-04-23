@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <span v-if="this.$route.name!='Home'">
+    <span v-if="this.$route.name!=='Home'">
       <navbar></navbar>
     </span>
     <router-view/>
@@ -29,7 +29,7 @@ export default {
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../static/css/vue-modal.css";
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -41,14 +41,20 @@ html,
 body {
   height: 100%;
   width: 100%;
-  // background:#E6ECF0
+  background:#F8F9FA
 }
 
 h1,
 h2 {
   font-weight: normal;
 }
-
+.backdrop{
+  position: absolute;
+  height:100%;
+  width: 100%;
+  background:rgba($color: #000000, $alpha: .7);
+  z-index: 9998;
+}
 ul {
   list-style-type: none;
   padding: 0;
@@ -61,5 +67,13 @@ li {
 
 a {
   color: #42b983;
+}
+.spinner{
+position:absolute; 
+    top:50%; 
+    left:50%; 
+    transform:translate(-50%, -50%); 
+    width:50%;
+    z-index: 9999;
 }
 </style>

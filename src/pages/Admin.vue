@@ -38,9 +38,10 @@
     </tr>
   </tbody>
 </table>
-<button class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#addUserModal" >Add user</button>
+<button class="btn btn-outline-primary float-right" data-toggle="modal" data-keyboard="false" data-backdrop="static" data-target="#addUserModal" >Add user</button>
 <edit-user id="editUserModal"></edit-user>
-<add-user id="addUserModal"></add-user>
+<add-user :form-user-data="formUserData" :on-add-user="onAddUser" id="addUserModal"></add-user>
+{{formUserData}}
   </div>
 </template>
 <script>
@@ -50,6 +51,16 @@ export default {
     components: {
     EditUser,
     AddUser
+  },
+  data(){
+    return{
+      formUserData:{}
+    }
+  },
+  methods:{
+    onAddUser(){
+      
+    }
   }
 }
 </script>
