@@ -9,8 +9,8 @@
       <h2>Log in to your account</h2>
       <form @submit.prevent="onLogin">
         <div class="form-group text-left">
-          <label for="exampleInputEmail1 ">Username</label>
-          <input v-model="username" type="text" class="form-control" placeholder="Username...">
+          <label>Email</label>
+          <input v-model="username" type="text" class="form-control" placeholder="Email...">
         </div>
         <div class="form-group text-left">
           <label for="exampleInputPassword1">Password</label>
@@ -18,6 +18,7 @@
         </div>
         <button type="submit" class="form-btn btn btn-outline-primary">LOGIN</button>
       </form>
+      <div class="error-message" v-if="errorMessage.length>0">{{errorMessage}}</div>
     </div>
   </div>
 </template>
@@ -41,6 +42,10 @@ h2 {
   clear: both;
   margin-top: 16px;
 }
+.error-message{
+  margin-top:8px;
+  color:#E8453C;
+}
 </style>
 <script>
 import { AtomSpinner } from "epic-spinners";
@@ -52,6 +57,7 @@ export default {
   },
   data() {
     return {
+      errorMessage:"",
       username: "",
       password: "",
       isLoading: false
@@ -94,8 +100,10 @@ export default {
             this.checkStatus();
           } else {
             localStorage.clear();
+            console.log(res);
+            this.errorMessage = res.message
+            this.isLoading = false;
           }
-          console.log(res);
         })
         .catch(error => {
           localStorage.clear();

@@ -10,6 +10,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <!-- <v-select :options="options" v-model="email" v-validate:email="'required|email'" name="email" :class="{ danger: errors.has('email') }"></v-select>
+  
+  <span v-show="errors.has('email')" class="danger">
+    {{ errors.first('email') }}
+  </span> -->
                         <div class="row">
                             <div class="form-group col-md-6 text-left">
                                 <label for="exampleInputEmail1 ">First name</label>
@@ -25,7 +30,7 @@
 
                             <div class="form-group col-md-6 text-left">
                                 <label>Password</label>
-                                <input v-model="formUserData.password" type="password" name="password" v-validate="'required'" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('password') }" placeholder="Password...">
+                                <input v-model="formUserData.password" type="password" name="password" v-validate="{ required:true,min:6}" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('password') }" placeholder="Password...">
                                 <span v-show="errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</span>
                             </div>
 
@@ -73,8 +78,15 @@
                             </div>
                             <div class="form-group col-md-6 text-left">
                                 <label>Role</label>
-                                <input v-model="formUserData.role" type="text" name="role" v-validate="'required'" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('role') }" placeholder="Role...">
-                                <span v-show="errors.has('role')" class="invalid-feedback">{{ errors.first('role') }}</span>
+                                <!-- <input v-model="formUserData.role" type="text" name="role" v-validate="'required'" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('role') }" placeholder="Role..."> -->  
+                                <!-- :class="{'is-invalid': errors.has('role') }" -->
+                                <v-select  name="role" 
+                                v-model="formUserData.role"  
+                                :options="['Administrator','Supervisor','Subordinator']"
+                                :class="{'invalid-dropdown': errors.has('role') }"
+                                v-validate="'required'" data-vv-delay="100" 
+                                ></v-select> 
+                                <div v-show="errors.has('role')" class="invalid-text">{{ errors.first('role') }}</div>
                             </div>
                         </div>
                     </div>
@@ -93,7 +105,13 @@ import adminService from "../../services/admin";
 export default {
   props: ["formUserData", "onAddUser"],
   data() {
-    return {};
+    return {
+    //     options: [
+    //   'valid@gmail.com',
+    //   'invalid email address',
+    // ],
+    // email: null
+    };
   },
   mounted() {
     console.log(this.formUserData, "check");
@@ -105,8 +123,8 @@ export default {
     },
     addUser() {
       console.log($);
-    //   this.$validator.validateAll().then(result => {
-        // if (result) {
+      this.$validator.validateAll().then(result => {
+        if (result) {
           alert("Form Submitted!");
           // this.onAddUser() // send to api
           let payload = {
@@ -139,9 +157,9 @@ export default {
             .catch(err => {
                 alert("error")
             });
-        // }
-        // alert("Correct them errors!");
-    //   });
+        }
+        alert("Correct them errors!");
+      });
     }
   }
 };
@@ -150,6 +168,21 @@ export default {
 button.close {
   display: none !important;
 }
+.invalid-text{
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+// .invalid-dropdown
+// .v-select .dropdown-toggle
+.invalid-dropdown{
+    border: solid 1px  #dc3545!important;
+    border-radius: 5px;
+    // border: 1px solid red;
+    // background:red!important;
+}
+
 /* Important part */
 .modal-dialog {
   overflow-y: initial !important;
