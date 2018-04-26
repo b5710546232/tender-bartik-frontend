@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" tabindex="-1" role="dialog">
+    <div ref="leaveFormModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form @submit.prevent="requestLeave">
@@ -13,8 +13,9 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label text-left">Task ID</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control">
+                                <v-select name="taskID" v-model="leaveForm.task_id" :options="taskIDList" :class="{'invalid-dropdown': errors.has('taskID') }" v-validate="'required'" data-vv-delay="100"></v-select>
                             </div>
+                            <!-- <div v-show="errors.has('role')" class="invalid-text">{{ errors.first('role') }}</div> -->
                         </div>
 
                         <div class="form-group row">
@@ -43,18 +44,19 @@
                                 <input type="text" class="form-control" v-model="leaveForm.type">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label text-left">Subtitude name</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" v-model="leaveForm.subtitudeName">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label text-left">Status</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" v-model="leaveForm.status">
                             </div>
                         </div>
+                        {{tasks}}
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-primary">Request</button>
@@ -66,14 +68,17 @@
     </div>
 </template>
 <script>
+import $ from "jquery";
+
 import taskService from "../../services/task";
 import userService from "../../services/user";
 import leaveService from "../../services/leave";
 import leave from "../../services/leave";
 
-import moment from 'moment-timezone'
-import _ from 'lodash'
+import moment from "moment-timezone";
+import _ from "lodash";
 export default {
+  props: ["tasks"],
   data() {
     return {
       leaveForm: {
@@ -83,30 +88,54 @@ export default {
         subtitudeName: "",
         type: "",
         note: "",
-        task_id: -1,
-        leaver_id: -1
-      }
+        task_id: ""
+      },
+      taskIDList: []
     };
   },
-  mounted() {},
+  mounted() {
+    this.tasks.map(item => {
+      console.log("item", item);
+    });
+  },
+  watch: {
+    tasks: function(val) {
+      this.taskIDList = _.uniqBy(this.tasks, e => {
+        return e.id;
+      });
+    }
+  },
   methods: {
     requestLeave() {
-      let form = _.clone(this.leaveForm)
+      let form = _.clone(this.leaveForm);
       let payload = {
-          start:moment(form.startDate).format("YYYY-MM-DD"),
-          end:moment(form.endDate).format("YYYY-MM-DD"),
-          type:form.type,
-          note:form.note,
-          task_id:-1,
-          leaver_id:-1,
-          status:form.status
+        start: moment(form.startDate).format("YYYY-MM-DD"),
+        end: moment(form.endDate).format("YYYY-MM-DD"),
+        type: form.type,
+        note: form.note,
+        task_id: parseInt(form.task_id),
+        status: form.status
       };
-        let headers = userService.getHeaders()
-        leaveService.postLeave(payload,headers).then(res=>{
-            console.log(res)
-        }).catch(err=>{
-            console.error(err)
+      let headers = userService.getHeaders();
+      leaveService
+        .postLeave(payload, headers)
+        .then(res => {
+          console.log(res);
+          $(this.$refs["leaveFormModal"]).modal("hide");
+          this.leaveForm = {
+            startDate: "",
+            endDate: "",
+            status: "",
+            subtitudeName: "",
+            type: "",
+            note: "",
+            task_id: ""
+          };
         })
+        .catch(err => {
+          console.error(err);
+          alert("error");
+        });
       //   leaveService
     }
   }
@@ -115,5 +144,20 @@ export default {
 <style lang="scss" scoped>
 button.close {
   display: none !important;
+}
+button.clear {
+  display: none !important;
+}
+i.open-indicator {
+  margin-right: 10px;
+}
+/* Important part */
+.modal-dialog {
+  overflow-y: initial !important;
+}
+.modal-body {
+  margin: 0;
+  height: 320px;
+  overflow-y: auto;
 }
 </style>

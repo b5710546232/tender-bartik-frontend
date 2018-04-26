@@ -12,7 +12,8 @@
                 <span class="badge badge-secondary">Subordinator</span>
               </h2>
               <div class="img-profile">
-                <img :src="userProfile.image_path" alt="Image not found" class="rounded">
+                <img :src="'https://limitless-falls-39048.herokuapp.com/'+userProfile.image_path" alt="Image not found" class="rounded"
+                width="200" height="200">
               </div>
               <div class="description-profile">
                 <div>{{userProfile.fname}} {{userProfile.lname}}</div>
@@ -42,7 +43,7 @@
                   <th scope="col">Task ID</th>
                 </tr>
               </thead>
-              <tbody v-for="leave in myLeaves" :key="leave.task_id">
+              <tbody v-for="leave in myLeaves" :key="leave.id">
                 <tr>
                   <td scope="row">{{leave.start}}</td>
                   <td scope="row">{{leave.end}}</td>
@@ -80,7 +81,7 @@
       </div>
     <!-- <datetime class="datetime" v-model="date"></datetime> -->
     </div>
-    <leave-form id="leaveFormModal"></leave-form>
+    <leave-form :tasks="myTasks" id="leaveFormModal"></leave-form>
   </div>
 </template>
 
@@ -105,12 +106,13 @@
       };
     },
     mounted() {
-      this.userProfile = Store.User
+
       
       const headers = userService.getHeaders()
 
       userService.fetchMe(headers).then(meResponse=>{
         console.log(meResponse)
+        this.userProfile = meResponse
       })
       taskService.getMyTask(headers).then(tasks => {
         console.log('tasks',tasks);
@@ -120,6 +122,7 @@
       })
 
       leaveService.getMyLeaves(headers).then(leaves => {
+        console.log('this.myLeaves',leaves)
         this.myLeaves = leaves
       });
     },
@@ -171,6 +174,7 @@
     text-align: center;
   }
   
+
   .bg-white {
     background: white;
   }
