@@ -28,6 +28,30 @@ export default {
 <style lang="scss">
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../static/css/vue-modal.css";
+.vdatetime-input{
+  @extend .form-control;
+}
+.vdatetime-overlay{
+    background: rgba(0.1,0.1,0.1,.1);
+    // z-index: -1050;
+}
+
+.theme-green .vdatetime-popup__header,
+.theme-green .vdatetime-calendar__month__day--selected > span > span,
+.theme-green .vdatetime-calendar__month__day--selected:hover > span > span {
+  background: #41b883;
+}
+
+.theme-green .vdatetime-year-picker__item--selected,
+.theme-green .vdatetime-time-picker__item--selected,
+.theme-green .vdatetime-popup__actions__button {
+  color: #41b883;
+}
+
+
+.margin-top-8 .vdatetime-popup{
+  margin-top:8%;
+}
 #app {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

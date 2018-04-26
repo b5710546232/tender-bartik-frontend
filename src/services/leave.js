@@ -8,9 +8,19 @@ const getAllLeaves = () => {
     })
 }
 
-const getMyLeaves = (headers=DefaultHeaders) =>{
-    return axios.get('/me/leaves',{
-        "headers":headers
+const getMyLeaves = (headers = DefaultHeaders) => {
+    return axios.get('/me/leaves', {
+        "headers": headers
+    }).then((res) => {
+        return res.data
+    }).catch(error => {
+        return error
+    })
+}
+
+const postLeave = (payload,headers = DefaultHeaders) => {
+    return axios.post('/leaves',payload ,{
+        "headers": headers
     }).then((res) => {
         return res.data
     }).catch(error => {
@@ -20,5 +30,6 @@ const getMyLeaves = (headers=DefaultHeaders) =>{
 
 export default {
     getAllLeaves,
-    getMyLeaves
+    getMyLeaves,
+    postLeave
 }

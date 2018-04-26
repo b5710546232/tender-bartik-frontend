@@ -2,44 +2,65 @@
     <div class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Leave form</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="">
+                <form @submit.prevent="requestLeave">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Leave form</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
                         <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-3 col-form-label text-left">Task</label>
+                            <label class="col-sm-3 col-form-label text-left">Task ID</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control">
                             </div>
                         </div>
+
                         <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-3 col-form-label text-left">Peroid</label>
+                            <label class="col-sm-3 col-form-label text-left">Start date</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control">
+                                <datetime class="margin-top-8 theme-green" v-model="leaveForm.startDate"></datetime>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-left">End date</label>
+                            <div class="col-sm-9">
+                                <datetime class="margin-top-8 theme-green" v-model="leaveForm.endDate"></datetime>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-3 col-form-label text-left">Note</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" v-model="leaveForm.note">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label text-left">Type</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" v-model="leaveForm.type">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label text-left">Subtitude name</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" v-model="leaveForm.subtitudeName">
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary">Request</button>
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                </div>
+                        <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-3 col-form-label text-left">Status</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" v-model="leaveForm.status">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-primary">Request</button>
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -47,17 +68,52 @@
 <script>
 import taskService from "../../services/task";
 import userService from "../../services/user";
+import leaveService from "../../services/leave";
+import leave from "../../services/leave";
+
+import moment from 'moment-timezone'
+import _ from 'lodash'
 export default {
-  mounted() {
-    let headers = userService.getHeaders;
-    taskService
-      .getMyTask(headers)
-    //   .then(res => {
-    //     console.log("tasks-me", res);
-    //   })
-    //   .catch(err => {
-    //     console.err(err);
-    //   });
+  data() {
+    return {
+      leaveForm: {
+        startDate: "",
+        endDate: "",
+        status: "",
+        subtitudeName: "",
+        type: "",
+        note: "",
+        task_id: -1,
+        leaver_id: -1
+      }
+    };
+  },
+  mounted() {},
+  methods: {
+    requestLeave() {
+      let form = _.clone(this.leaveForm)
+      let payload = {
+          start:moment(form.startDate).format("YYYY-MM-DD"),
+          end:moment(form.endDate).format("YYYY-MM-DD"),
+          type:form.type,
+          note:form.note,
+          task_id:-1,
+          leaver_id:-1,
+          status:form.status
+      };
+        let headers = userService.getHeaders()
+        leaveService.postLeave(payload,headers).then(res=>{
+            console.log(res)
+        }).catch(err=>{
+            console.error(err)
+        })
+      //   leaveService
+    }
   }
 };
 </script>
+<style lang="scss" scoped>
+button.close {
+  display: none !important;
+}
+</style>

@@ -82,7 +82,7 @@
                                 <!-- :class="{'is-invalid': errors.has('role') }" -->
                                 <v-select  name="role" 
                                 v-model="formUserData.role"  
-                                :options="['Administrator','Supervisor','Subordinator']"
+                                :options="['Administrator','Supervisor','Subordinate']"
                                 :class="{'invalid-dropdown': errors.has('role') }"
                                 v-validate="'required'" data-vv-delay="100" 
                                 ></v-select> 

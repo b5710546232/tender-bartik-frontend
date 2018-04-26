@@ -1,4 +1,5 @@
 import axios,{DefaultHeaders}  from './axios'
+import Store from '../stores/'
 
 const getMe = (headers=DefaultHeaders) => {
     return axios.get('/me',{
@@ -16,6 +17,16 @@ const getAccessToken = ()=>{
     return false
 }
 
+const fetchMe = (headers=getHeaders())=>{
+    return getMe(headers).then(res=>{
+        Store.User = res
+        return res
+    }).catch(err=>{
+        console.error(err)
+    })
+}
+
+
 const getHeaders = ()=>{
     const token = getAccessToken();
       if (token) {
@@ -32,5 +43,6 @@ const getHeaders = ()=>{
 export default {
     getMe,
     getAccessToken,
-    getHeaders
+    getHeaders,
+    fetchMe
 }

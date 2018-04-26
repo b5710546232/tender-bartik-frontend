@@ -12,12 +12,12 @@
                 <span class="badge badge-secondary">Subordinator</span>
               </h2>
               <div class="img-profile">
-                <img :src="imgSrc" alt="..." class="rounded">
+                <img :src="userProfile.image_path" alt="Image not found" class="rounded">
               </div>
               <div class="description-profile">
-                <div>John Doe</div>
+                <div>{{userProfile.fname}} {{userProfile.lname}}</div>
                 <div>Department
-                  <strong>@Computer</strong>
+                  <strong>@{{userProfile.department}}</strong>
                 </div>
               </div>
             </div>
@@ -25,7 +25,7 @@
           </div>
   
           <div class="request-btn">
-            <button type="button" class="col-sm-12 btn btn-outline-success float-right" data-toggle="modal" data-target="#leaveFormModal">Request leave form</button>
+            <button type="button" class="col-sm-12 btn btn-outline-success float-right" data-toggle="modal" data-keyboard="false" data-backdrop="static" data-target="#leaveFormModal">Request leave form</button>
           </div>
         </div>
   
@@ -78,14 +78,14 @@
         </div>
   
       </div>
-  
+    <!-- <datetime class="datetime" v-model="date"></datetime> -->
     </div>
-  
     <leave-form id="leaveFormModal"></leave-form>
   </div>
 </template>
 
 <script>
+  import Store from '../../stores'
   import LeaveForm from "../../components/modal/LeaveForm";
   
   import userService from '../../services/user'
@@ -100,12 +100,18 @@
           start:"...",
           end:"...",
           task_id:"..."
-        }]
+        }],
+        userProfile:{}
       };
     },
     mounted() {
-      const headers = userService.getHeaders()
+      this.userProfile = Store.User
       
+      const headers = userService.getHeaders()
+
+      userService.fetchMe(headers).then(meResponse=>{
+        console.log(meResponse)
+      })
       taskService.getMyTask(headers).then(tasks => {
         console.log('tasks',tasks);
         this.myTasks = tasks
@@ -131,6 +137,7 @@
     margin-top: 20px;
     padding: 0 5%;
   }
+
   
   .description-profile {
     text-align: left;
