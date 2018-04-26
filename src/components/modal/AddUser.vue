@@ -157,8 +157,9 @@ export default {
             .catch(err => {
                 alert("error")
             });
+        }else{
+            alert("Correct them errors!");
         }
-        alert("Correct them errors!");
       });
     }
   }

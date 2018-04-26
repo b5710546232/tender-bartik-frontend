@@ -29,12 +29,12 @@ export default new Router({
       component:RegisterPage
     },
     {
-      path: '/supervisor/profile',
+      path: '/supervisor',
       name: 'SupervisorProfilePage',
       component: SupervisorProfilePage
     },
     {
-      path: '/subordinator/profile',
+      path: '/subordinator',
       name: 'SubordinatorProfilePage',
       component: SubordinatorProfilePage
     }

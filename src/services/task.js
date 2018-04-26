@@ -1,4 +1,4 @@
-import axios from './axios'
+import axios,{DefaultHeaders}  from './axios'
 
 const getAllTask = () => {
     return axios.get('/tasks').then((res) => {
@@ -8,6 +8,17 @@ const getAllTask = () => {
     })
 }
 
+const getMyTask = (headers=DefaultHeaders) =>{
+    return axios.get('/me/tasks',{
+        "headers":headers
+    }).then((res) => {
+        return res.data
+    }).catch(error => {
+        return error
+    })
+}
+
 export default {
-    getAllTask
+    getAllTask,
+    getMyTask
 }

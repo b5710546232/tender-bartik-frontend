@@ -37,10 +37,27 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary">Save changes</button>
+                    <button type="button" class="btn btn-outline-primary">Request</button>
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 </template>
+<script>
+import taskService from "../../services/task";
+import userService from "../../services/user";
+export default {
+  mounted() {
+    let headers = userService.getHeaders;
+    taskService
+      .getMyTask(headers)
+    //   .then(res => {
+    //     console.log("tasks-me", res);
+    //   })
+    //   .catch(err => {
+    //     console.err(err);
+    //   });
+  }
+};
+</script>

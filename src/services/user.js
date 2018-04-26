@@ -16,7 +16,21 @@ const getAccessToken = ()=>{
     return false
 }
 
+const getHeaders = ()=>{
+    const token = getAccessToken();
+      if (token) {
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: token
+        }
+        return headers
+    }
+    return null
+    
+}
+
 export default {
     getMe,
-    getAccessToken
+    getAccessToken,
+    getHeaders
 }

@@ -8,6 +8,17 @@ const getAllLeaves = () => {
     })
 }
 
+const getMyLeaves = (headers=DefaultHeaders) =>{
+    return axios.get('/me/leaves',{
+        "headers":headers
+    }).then((res) => {
+        return res.data
+    }).catch(error => {
+        return error
+    })
+}
+
 export default {
-    getAllLeaves
+    getAllLeaves,
+    getMyLeaves
 }

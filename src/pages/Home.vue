@@ -117,6 +117,9 @@ export default {
         console.log(this.$router);
         this.$router.push("/admin");
       }
+      else if (role === 'Subordinator' || role==='Subordinate'){
+        this.$router.push("/subordinator");
+      }
     }
   },
   mounted() {
