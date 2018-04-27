@@ -12,7 +12,7 @@
                 <span class="badge badge-secondary">Subordinator</span>
               </h2>
               <div class="img-profile">
-                <img :src="'https://limitless-falls-39048.herokuapp.com/'+userProfile.image_path" alt="Image not found" class="rounded"
+                <img :src="getImage()" alt="Image not found" class="rounded"
                 width="200" height="200">
               </div>
               <div class="description-profile">
@@ -128,6 +128,14 @@
     },
     components: {
       LeaveForm
+    },
+    methods:{
+      getImage(){
+        if(this.userProfile.image_path){
+          return 'https://limitless-falls-39048.herokuapp.com/'+this.userProfile.image_path
+        }
+        return this.imgSrc
+      }
     }
   };
 </script>

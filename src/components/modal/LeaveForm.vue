@@ -13,7 +13,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label text-left">Task ID</label>
                             <div class="col-sm-9">
-                                <v-select name="taskID" v-model="leaveForm.task_id" :options="taskIDList" :class="{'invalid-dropdown': errors.has('taskID') }" v-validate="'required'" data-vv-delay="100"></v-select>
+                                <v-select name="taskID" v-model="leaveForm.id" :options="taskIDList" :class="{'invalid-dropdown': errors.has('taskID') }" v-validate="'required'" data-vv-delay="100"></v-select>
                             </div>
                             <!-- <div v-show="errors.has('role')" class="invalid-text">{{ errors.first('role') }}</div> -->
                         </div>
@@ -56,7 +56,7 @@
                                 <input type="text" class="form-control" v-model="leaveForm.status">
                             </div>
                         </div>
-                        {{tasks}}
+                        {{taskIDList}}
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-primary">Request</button>
@@ -88,7 +88,7 @@ export default {
         subtitudeName: "",
         type: "",
         note: "",
-        task_id: ""
+        id: ""
       },
       taskIDList: []
     };
@@ -100,9 +100,11 @@ export default {
   },
   watch: {
     tasks: function(val) {
-      this.taskIDList = _.uniqBy(this.tasks, e => {
+      this.taskIDList = _.map(_.uniqBy(this.tasks, e => {
         return e.id;
-      });
+      }),(i)=>{
+          return String(i.id)
+      })
     }
   },
   methods: {
@@ -113,7 +115,7 @@ export default {
         end: moment(form.endDate).format("YYYY-MM-DD"),
         type: form.type,
         note: form.note,
-        task_id: parseInt(form.task_id),
+        task_id: parseInt(form.id),
         status: form.status
       };
       let headers = userService.getHeaders();
@@ -129,7 +131,7 @@ export default {
             subtitudeName: "",
             type: "",
             note: "",
-            task_id: ""
+            id: ""
           };
         })
         .catch(err => {
