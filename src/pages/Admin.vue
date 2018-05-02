@@ -60,7 +60,7 @@ export default {
       
     },
     print(){
-      const  yourURL  = 'http://http://vleave.ivaa.space/#/print'
+      const  yourURL  = 'http://vleave.ivaa.space/#/print'
        var w = window.open(yourURL)
     w.focus()
     },
