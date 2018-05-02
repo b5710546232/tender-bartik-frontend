@@ -8,8 +8,10 @@ import RegisterPage from '../pages/Register'
 import SubordinatorProfilePage from '../pages/subordinator/Profile'
 import SupervisorProfilePage from '../pages/supervisor/Profile'
 import SupervisorLeaveHistoryPage from '../pages/supervisor/LeaveHistory'
+import SupervisorNotificationPage from '../pages/supervisor/Notification'
 
 import EditProfile from '../pages/EditProfile'
+import Print from '../pages/Print'
 
 Vue.use(Router)
 
@@ -22,7 +24,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/admin',
+      path: '/administrator',
       name: 'Admin',
       component: Admin
     },
@@ -42,6 +44,11 @@ export default new Router({
       component: SupervisorLeaveHistoryPage
     },
     {
+      path: '/supervisor/notification',
+      name: 'SupervisorNotificationPage',
+      component: SupervisorNotificationPage
+    },
+    {
       path: '/subordinatate',
       name: 'SubordinatorProfilePage',
       component: SubordinatorProfilePage
@@ -50,6 +57,11 @@ export default new Router({
       path: '/editprofile',
       name: 'EditProfile',
       component: EditProfile
+    },
+    {
+      path: '/print',
+      name: 'Print',
+      component: Print
     }
   ]
 })

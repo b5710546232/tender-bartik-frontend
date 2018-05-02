@@ -27,6 +27,9 @@
   
       </ul>
       <ul class="navbar-nav ml-auto">
+        <li v-if="userProfile.role == 'Supervisor'" class="nav-item right">
+          <a class="nav-link" href="#/supervisor/notification">Notification( {{ notifications.length }} )</a>
+        </li>
         <li class="nav-item right">
           <a class="nav-link" @click="onLogout">Logout</a>
         </li>
@@ -59,15 +62,14 @@
 
 <script>
   import Store from '../stores'
+  import userService from '../services/user'
+  import LeaveService from '../services/leave'
   export default {
     data() {
       return {
-        userProfile:{}
+        userProfile:{},
+        notifications:{}
       }
-    },
-    mounted() {
-      this.userProfile = Store.User
-      console.log(this.userProfile, 'user profile')
     },
     methods: {
       lower(s){
@@ -76,8 +78,33 @@
       onLogout() {
         localStorage.clear()
         this.$router.push('/')
+      },
+      notification() {
+        const headers = userService.getHeaders()
+        LeaveService.getPendingLeave(headers).then(res => {
+          this.notifications = res
+        })
+      },
+      checkStatus() {
+        const token = userService.getAccessToken();
+        if (token) {
+          const headers = {
+            "Content-Type": "application/json",
+            Authorization: token
+          }
+          userService.fetchMe(headers).then(res => {
+            console.log("Hello", res)
+            this.userProfile = res
+          }).catch(err => {
+            console.error(err)
+          })
+        }
       }
-    }
+    },
+    mounted() {
+      this.notification()
+      this.checkStatus()
+    },
   }
 </script>
 

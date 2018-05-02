@@ -31,13 +31,14 @@ const getAllUser = () =>{
     });
 }
 
+
 const getSupervisor = () =>{
     const config = {
         headers: {
             'Authorization': getAccessToken()
         }
     }
-    return axios.get('/users',config).then((res) => {
+    return axios.get('/users/supervisors',config).then((res) => {
         return res.data
     }).catch(error => {
         return error

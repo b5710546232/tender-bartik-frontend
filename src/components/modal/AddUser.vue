@@ -89,11 +89,11 @@
                                 <div v-show="errors.has('role')" class="invalid-text">{{ errors.first('role') }}</div>
                             </div>
 
-                             <div  v-if="formUserData.role=='Subordinate'"class="form-group col-md-6 text-left">
+                             <div  v-if="formUserData.role=='Subordinate'" class="form-group col-md-6 text-left">
                                 <label>Supervisor</label>
                                 <v-select  name="supervisor" 
-                                v-model="formUserData.role"  
-                                :options="['4']"
+                                v-model="formUserData.supervisor"  
+                                :options="supList"
                                 :class="{'invalid-dropdown': errors.has('supervisor') }"
                                 v-validate="''" data-vv-delay="100" 
                                 ></v-select> 
@@ -105,6 +105,7 @@
                         <button type="submit" class="btn btn-outline-primary">Confirm</button>
                         <button type="button" class="btn btn-outline-secondary" @click="onCancel" data-dismiss="modal">Cancel</button>
                     </div>
+                    <!-- {{supList}} -->
                 </form>
             </div>
         </div>
@@ -113,10 +114,15 @@
 <script>
 import $ from "jquery";
 import adminService from "../../services/admin";
+import userService from '../../services/user';
+import _ from 'lodash'
+
 export default {
   props: ["formUserData", "onAddUser"],
   data() {
     return {
+        supList:[],
+        supListOrigin:[]
     //     options: [
     //   'valid@gmail.com',
     //   'invalid email address',
@@ -126,6 +132,11 @@ export default {
   },
   mounted() {
     console.log(this.formUserData, "check");
+    userService.getSupervisor().then(res=>{
+        this.supListOrigin = _.clone(res)
+        this.supList = res.map(i=> String(i.id+" "+i.fname+" "+i.lname) )
+        console.log('supbList',this.supList)
+    })
   },
   methods: {
     onCancel() {
@@ -151,6 +162,9 @@ export default {
             line: this.formUserData.line,
             department: this.formUserData.department,
             role: this.formUserData.role
+          }
+          if(payload.role==='Subordinate'){
+              payload['supervisor_id'] = this.formUserData.supervisor[0]
           }
           const authorization = `${localStorage.getItem('token_type')} ${localStorage.getItem('access_token')}`
           const headers = {
