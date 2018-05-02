@@ -28,8 +28,38 @@ const postLeave = (payload,headers = DefaultHeaders) => {
     })
 }
 
+const getPendingLeave = (headers = DefaultHeaders) => {
+    return axios.get('/leaves/pending', {
+        "headers": headers
+    }).then((res) => {
+        return res.data
+    }).catch(error => {
+        return error
+    })
+}
+const confirmPendingLeave = (index, headers = DefaultHeaders) => {
+    return axios.get('leaves/' + index + '/approve' ,{
+        "headers": headers
+    }).then((res) => {
+        return res.data
+    }).catch(error => {
+        return error
+    })
+}
+const rejectPendingLeave = (index, headers = DefaultHeaders) => {
+    return axios.get('leaves/' + index + '/deny' ,{
+        "headers": headers
+    }).then((res) => {
+        return res.data
+    }).catch(error => {
+        return error
+    })
+}
 export default {
     getAllLeaves,
     getMyLeaves,
-    postLeave
+    postLeave,
+    getPendingLeave,
+    confirmPendingLeave,
+    rejectPendingLeave
 }

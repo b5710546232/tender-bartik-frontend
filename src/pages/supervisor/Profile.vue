@@ -1,5 +1,8 @@
 <template>
   <div class="root">
+    <div class="backdrop" v-if="isLoading">
+      <atom-spinner class="spinner" :animation-duration="1000" :size="150" :color="'#9FFD8D'" />
+    </div>
     <div class="container">
       <div class="row">
   
@@ -61,13 +64,11 @@
 </template>
 <script>
   import Store from '../../stores'
-  // import LeaveForm from "../../components/modal/LeaveForm";
-  // import LeaveHistory from '../../components/modal/LeaveHistory'
   import AddTask from '../../components/modal/AddTask'
-
   import userService from '../../services/user'
-  import taskService from "../../services/task";
-  import leaveService from "../../services/leave";
+  import taskService from "../../services/task"
+  import leaveService from "../../services/leave"
+  import { AtomSpinner } from "epic-spinners"
 
   export default {
     data() {
@@ -79,7 +80,8 @@
           end:"...",
           task_id:"..."
         }],
-        userProfile:{}
+        userProfile:{},
+        isLoading: false
       }
     },
     methods:{
@@ -100,7 +102,7 @@
     mounted() {
       this.userProfile = Store.User
       const headers = userService.getHeaders()
-
+      this.isLoading = true
       userService.fetchMe(headers).then(meResponse=>{
         console.log(meResponse)
         Store.User = meResponse
@@ -109,6 +111,7 @@
       taskService.getMyTask(headers).then(tasks => {
         console.log('tasks',tasks);
         this.tasks = tasks
+        this.isLoading = false
       }).catch(err => {
         console.error('Sub-Profile-getMyTaskError', err)
       })
@@ -118,7 +121,8 @@
       });
     },
     components: {
-      AddTask
+      AddTask,
+      AtomSpinner
     }
   }
 </script>

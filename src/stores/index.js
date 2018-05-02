@@ -16,7 +16,9 @@ let User = {
     "created_at": "",
     "updated_at": ""
 }
+let Notification = {}
 
 export default {
-    User
+    User,
+    Notification
 }

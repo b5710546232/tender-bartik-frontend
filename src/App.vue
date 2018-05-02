@@ -73,11 +73,14 @@ h2 {
   font-weight: normal;
 }
 .backdrop{
-  position: absolute;
+  position: fixed;
   height:100%;
   width: 100%;
   background:rgba($color: #000000, $alpha: .7);
+  left: 0;
+  top: 0;
   z-index: 9998;
+  overflow: auto;
 }
 ul {
   list-style-type: none;
