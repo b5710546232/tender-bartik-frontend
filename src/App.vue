@@ -92,6 +92,9 @@ li {
 a {
   color: #42b983;
 }
+button.clear {
+  display: none !important;
+}
 .spinner{
 position:absolute; 
     top:50%; 
