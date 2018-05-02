@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </form>
-            <form @submit.prevent="addUser">
+            <form @submit.prevent="editUser">
                 <div class="row">
                     <div class="form-group col-md-6 text-left">
                         <label>First name</label>
@@ -32,23 +32,11 @@
                         <span v-show="errors.has('last name')" class="invalid-feedback">{{ errors.first('last name') }}</span>
                     </div>
 
-                    <div class="form-group col-md-6 text-left">
-                        <label>Password</label>
-                        <input v-model="formUserData.password" type="password" name="password" v-validate="{ required:true,min:6}" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('password') }" placeholder="Password...">
-                        <span v-show="errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</span>
-                    </div>
-
-                    <div class="form-group col-md-6 text-left">
-                        <label>Confirm Password</label>
-                        <input v-model="formUserData.confirmpassword" type="password" name="confirm password" v-validate="{ required:true,confirmed: 'password' }" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('confirm password') }" placeholder="Confirm password...">
-                        <span v-show="errors.has('confirm password')" class="invalid-feedback">{{ errors.first('confirm password') }}</span>
-                    </div>
-
-                    <div class="form-group col-md-6 text-left">
+                    <!-- <div class="form-group col-md-6 text-left">
                         <label>Email</label>
                         <input v-model="formUserData.email" name="email" v-validate="'required|email'" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('email') }" type="text" aria-describedby="emailHelp" placeholder="Enter email">
                         <span v-show="errors.has('email')" class="invalid-feedback">{{ errors.first('email') }}</span>
-                    </div>
+                    </div> -->
 
                     <div class="form-group col-md-6 text-left">
                         <label>Address</label>
@@ -80,13 +68,13 @@
                         <input v-model="formUserData.department" type="text" name="department" v-validate="'required'" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('department') }" placeholder="Department...">
                         <span v-show="errors.has('department')" class="invalid-feedback">{{ errors.first('department') }}</span>
                     </div>
-                    <div class="form-group col-md-6 text-left">
-                        <label>Role</label>
+                    <!-- <div class="form-group col-md-6 text-left"> -->
+                        <!-- <label>Role</label> -->
                         <!-- <input v-model="formUserData.role" type="text" name="role" v-validate="'required'" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('role') }" placeholder="Role..."> -->
                         <!-- :class="{'is-invalid': errors.has('role') }" -->
-                        <v-select name="role" v-model="formUserData.role" :options="['Administrator','Supervisor','Subordinate']" :class="{'invalid-dropdown': errors.has('role') }" v-validate="'required'" data-vv-delay="100"></v-select>
-                        <div v-show="errors.has('role')" class="invalid-text">{{ errors.first('role') }}</div>
-                    </div>
+                        <!-- <v-select name="role" v-model="formUserData.role" :options="['Administrator','Supervisor','Subordinate']" :class="{'invalid-dropdown': errors.has('role') }" v-validate="'required'" data-vv-delay="100"></v-select> -->
+                        <!-- <div v-show="errors.has('role')" class="invalid-text">{{ errors.first('role') }}</div> -->
+                    <!-- </div> -->
                 </div>
                 <div class="">
                     <button type="submit" class="btn btn-outline-primary">Confirm</button>
@@ -94,17 +82,23 @@
                 </div>
             </form>
         </div>
+        <!-- {{userData}} -->
     </div>
 </template>
 <script>
+import $ from "jquery";
 import userService from "../services/user";
 import PictureInput from "vue-picture-input";
+
 export default {
   data() {
     return {
       formUserData: {},
-      image:''
+      image:'',
+      userData:{}
     };
+  },
+  mounted(){
   },
   methods: {
     onChanged() {
@@ -114,6 +108,36 @@ export default {
       } else {
         console.log("Old browser. No support for Filereader API");
       }
+    },
+    editUser() {
+      console.log($);
+      this.$validator.validateAll().then(result => {
+        if (result) {
+        //   alert("Form Submitted!");
+          // this.onAddUser() // send to api
+          let payload = {
+            fname: this.formUserData.firstname,
+            lname: this.formUserData.lastname,
+            // email: this.formUserData.email,
+            address: this.formUserData.address,
+            telno: this.formUserData.tel,
+            fb: this.formUserData.facebook,
+            ig: this.formUserData.ig,
+            line: this.formUserData.line,
+            // role: this.formUserData.role,
+            department: this.formUserData.department
+          }
+          userService.updateUserByID(payload).then(res=>{
+            console.log('200')
+            this.formUserData = {}
+        }).catch(e=>{
+            console.error('edituser error')
+        })
+         
+        }else{
+            alert("Correct them errors!");
+        }
+      });
     },
     uploadPhoto() {
       userService
