@@ -125,7 +125,7 @@ export default {
       console.log($);
       this.$validator.validateAll().then(result => {
         if (result) {
-          alert("Form Submitted!");
+        //   alert("Form Submitted!");
           // this.onAddUser() // send to api
           let payload = {
             fname: this.formUserData.firstname,
