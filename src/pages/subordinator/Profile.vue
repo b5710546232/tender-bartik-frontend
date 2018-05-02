@@ -106,8 +106,6 @@
       };
     },
     mounted() {
-
-      
       const headers = userService.getHeaders()
 
       userService.fetchMe(headers).then(meResponse=>{

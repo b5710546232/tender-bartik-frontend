@@ -84,11 +84,12 @@
     },
     mounted() {
       this.userProfile = Store.User
-      
       const headers = userService.getHeaders()
 
       userService.fetchMe(headers).then(meResponse=>{
         console.log(meResponse)
+        Store.User = meResponse
+        this.userProfile = Store.User
       })
       taskService.getMyTask(headers).then(tasks => {
         console.log('tasks',tasks);

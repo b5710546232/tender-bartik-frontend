@@ -7,6 +7,7 @@ import Admin from '../pages/Admin'
 import RegisterPage from '../pages/Register'
 import SubordinatorProfilePage from '../pages/subordinator/Profile'
 import SupervisorProfilePage from '../pages/supervisor/Profile'
+import SupervisorLeaveHistoryPage from '../pages/supervisor/LeaveHistory'
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/supervisor',
       name: 'SupervisorProfilePage',
       component: SupervisorProfilePage
+    },
+    {
+      path: '/supervisor/leave-history',
+      name: 'SupervisorLeaveHistoryPage',
+      component: SupervisorLeaveHistoryPage
     },
     {
       path: '/subordinator',
