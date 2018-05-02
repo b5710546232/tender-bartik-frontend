@@ -9,6 +9,8 @@ import SubordinatorProfilePage from '../pages/subordinator/Profile'
 import SupervisorProfilePage from '../pages/supervisor/Profile'
 import SupervisorLeaveHistoryPage from '../pages/supervisor/LeaveHistory'
 
+import EditProfile from '../pages/EditProfile'
+
 Vue.use(Router)
 
 export default new Router({
@@ -43,6 +45,11 @@ export default new Router({
       path: '/subordinator',
       name: 'SubordinatorProfilePage',
       component: SubordinatorProfilePage
+    },
+    {
+      path: '/editprofile',
+      name: 'EditProfile',
+      component: EditProfile
     }
   ]
 })

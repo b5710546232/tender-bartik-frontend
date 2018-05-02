@@ -19,7 +19,7 @@
           </li> -->
   
         <li class="nav-item">
-          <a class="nav-link" href="#">Edit profile</a>
+          <a class="nav-link" href="#/editprofile">Edit profile</a>
         </li>
         <li v-if="userProfile.role == 'Supervisor'" class="nav-item">
           <a class="nav-link" href="#/supervisor/leave-history">Leave History</a>

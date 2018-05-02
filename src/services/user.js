@@ -41,9 +41,28 @@ const getHeaders = ()=>{
     
 }
 
+const uploadProfile = (file, name = 'images') => {
+    const url="/me/upload_image"
+    if (typeof url !== 'string') {
+      throw new TypeError(`Expected a string, got ${typeof url}`);
+    }
+    // You can add checks to ensure the url is valid, if you wish
+    // 'content-type': 'multipart/form-data'
+    const formData = new FormData();
+    formData.append(name, file);
+    const config = {
+      headers: {
+        'Authorization':getAccessToken(),
+        'Content-Type':'application/x-www-form-urlencoded'
+      }
+    };
+    return axios.post(url, formData, config);
+  };
+
 export default {
     getMe,
     getAccessToken,
     getHeaders,
-    fetchMe
+    fetchMe,
+    uploadProfile
 }
