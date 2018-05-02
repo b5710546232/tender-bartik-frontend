@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">V-leave</a>
+    <a class="navbar-brand" :href="'#/' + userProfile.role">V-leave</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,6 +20,9 @@
   
         <li class="nav-item">
           <a class="nav-link" href="#">Edit profile</a>
+        </li>
+        <li v-if="userProfile.role == 'Supervisor'" class="nav-item">
+          <a class="nav-link" href="#/supervisor/leave-history">Leave History</a>
         </li>
   
       </ul>
@@ -55,7 +58,17 @@
 </style>
 
 <script>
+  import Store from '../stores'
   export default {
+    data() {
+      return {
+        userProfile:{}
+      }
+    },
+    mounted() {
+      this.userProfile = Store.User
+      console.log(this.userProfile, 'user profile')
+    },
     methods: {
       onLogout() {
         localStorage.clear()

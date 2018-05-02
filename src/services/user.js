@@ -5,6 +5,7 @@ const getMe = (headers=DefaultHeaders) => {
     return axios.get('/me',{
         "headers":headers
     }).then((res) => {
+        Store.User = res.data
         return res.data
     }).catch(error => {
         return error

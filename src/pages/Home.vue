@@ -120,6 +120,9 @@ export default {
       else if (role === 'Subordinator' || role==='Subordinate'){
         this.$router.push("/subordinator");
       }
+      else if (role === 'Supervisor'){
+        this.$router.push("/supervisor");
+      }
     }
   },
   mounted() {
