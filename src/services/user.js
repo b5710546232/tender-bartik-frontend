@@ -18,6 +18,32 @@ const getAccessToken = () => {
     return false
 }
 
+const getAllUser = () =>{
+    const config = {
+        headers: {
+            'Authorization': getAccessToken()
+        }
+    }
+    return axios.get('/users',config).then((res) => {
+        return res.data
+    }).catch(error => {
+        return error
+    });
+}
+
+const getSupervisor = () =>{
+    const config = {
+        headers: {
+            'Authorization': getAccessToken()
+        }
+    }
+    return axios.get('/users',config).then((res) => {
+        return res.data
+    }).catch(error => {
+        return error
+    });
+}
+
 const updateUserByID = (payload) => {
     const config = {
         headers: {
@@ -25,6 +51,20 @@ const updateUserByID = (payload) => {
         }
     }
     const url = `/users/1`
+    return axios.put(url, payload, config).then((res) => {
+        return res.data
+    }).catch(error => {
+        return error
+    });
+}
+
+const adminUpdateUserByID = (id,payload)=>{
+    const config = {
+        headers: {
+            'Authorization': getAccessToken()
+        }
+    }
+    const url = `/users/${id}`
     return axios.put(url, payload, config).then((res) => {
         return res.data
     }).catch(error => {
@@ -79,5 +119,8 @@ export default {
     getHeaders,
     fetchMe,
     uploadProfile,
-    updateUserByID
+    updateUserByID,
+    getAllUser,
+    adminUpdateUserByID,
+    getSupervisor
 }

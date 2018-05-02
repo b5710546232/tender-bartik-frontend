@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div class="float-right print-btn">
-      <button class="btn btn-outline-primary">print statistic</button>
+      <button class="btn btn-outline-primary" data-toggle="modal" data-keyboard="false" data-backdrop="static" data-target="#addUserModal" >Add user</button>
+      <button class="btn btn-outline-info">print statistic</button>
     </div>
     <table class="table table-bordered">
   <thead>
@@ -13,40 +14,26 @@
       <th scope="col">Manage</th>
     </tr>
   </thead>
-  <tbody>
+  
+  <tbody v-for="user in userList" :key="user.id">
     <tr>
-      <th scope="row">1</th>
-      <td>Mark Otto</td>
-      <td>Admin</td>
-      <td>Computer</td>
-      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#editUserModal" >edit</button></td>
-      
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob Thornton</td>
-      <td>Supervisor</td>
-      <td>Computer</td>
-      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#editUserModal" >edit</button></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry the Bird</td>
-      <td>Subordinator</td>
-      <td>Computer</td>
-      <td><button class="btn btn-outline-info" data-toggle="modal" data-target="#editUserModal" >edit</button></td>
+      <th scope="row">{{user.id}}</th>
+      <td>{{user.fname}} {{user.lname}}</td>
+      <td>{{user.role}}</td>
+      <td>{{user.department}}</td>
+      <td><button class="btn btn-outline-info" data-toggle="modal" data-keyboard="false" data-backdrop="static" data-target="#editUserModal" @click="onSelect(user.id)">edit</button></td>
     </tr>
   </tbody>
 </table>
-<button class="btn btn-outline-primary float-right" data-toggle="modal" data-keyboard="false" data-backdrop="static" data-target="#addUserModal" >Add user</button>
-<edit-user id="editUserModal"></edit-user>
+<edit-user id="editUserModal" :user-id="selectuserID"></edit-user>
 <add-user :form-user-data="formUserData" :on-add-user="onAddUser" id="addUserModal"></add-user>
-{{formUserData}}
+<!-- {{formUserData}} -->
   </div>
 </template>
 <script>
 import AddUser from '../components/modal/AddUser'
 import EditUser from '../components/modal/EditUser'
+import userService from '../services/user'
 export default {
     components: {
     EditUser,
@@ -54,12 +41,23 @@ export default {
   },
   data(){
     return{
-      formUserData:{}
+      formUserData:{},
+      userList:[],
+      selectuserID:0
     }
+  },
+  mounted(){
+    userService.getAllUser().then(res=>{
+      this.userList = res
+      console.log(this.userList)
+    })
   },
   methods:{
     onAddUser(){
       
+    },
+    onSelect(id){
+      this.selectuserID = id
     }
   }
 }

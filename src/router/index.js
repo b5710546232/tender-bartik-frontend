@@ -42,7 +42,7 @@ export default new Router({
       component: SupervisorLeaveHistoryPage
     },
     {
-      path: '/subordinator',
+      path: '/subordinatate',
       name: 'SubordinatorProfilePage',
       component: SubordinatorProfilePage
     },
