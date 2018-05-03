@@ -1,7 +1,19 @@
 import axios from './axios'
 
+const getAccessToken = () => {
+    if (localStorage.getItem('token_type') && localStorage.getItem('access_token')) {
+        return `${localStorage.getItem('token_type')} ${localStorage.getItem('access_token')}`
+    }
+    return false
+}
+
 const getAllLeaves = () => {
-    return axios.get('/leaves').then((res) => {
+    const config = {
+        headers: {
+            'Authorization': getAccessToken()
+        }
+    }
+    return axios.get('/leaves',config).then((res) => {
         return res.data
     }).catch(error => {
         return error

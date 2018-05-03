@@ -115,13 +115,15 @@ export default {
       console.log("route", role);
       if (role === "Administrator") {
         console.log(this.$router);
-        this.$router.push("/admin");
+        this.$router.push("/administrator");
       }
       else if (role === 'Subordinator' || role==='Subordinate'){
-        this.$router.push("/subordinator");
+        this.$router.push("/subordinatate");
       }
       else if (role === 'Supervisor'){
         this.$router.push("/supervisor");
+      }else{
+        alert('error')
       }
     }
   },

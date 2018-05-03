@@ -28,7 +28,7 @@
                                 <span v-show="errors.has('last name')" class="invalid-feedback">{{ errors.first('last name') }}</span>
                             </div>
 
-                            <div class="form-group col-md-6 text-left">
+  <div class="form-group col-md-6 text-left">
                                 <label>Password</label>
                                 <input v-model="formUserData.password" type="password" name="password" v-validate="{ required:true,min:6}" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('password') }" placeholder="Password...">
                                 <span v-show="errors.has('password')" class="invalid-feedback">{{ errors.first('password') }}</span>
@@ -39,7 +39,7 @@
                                 <input v-model="formUserData.confirmpassword" type="password" name="confirm password" v-validate="{ required:true,confirmed: 'password' }" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('confirm password') }" placeholder="Confirm password...">
                                 <span v-show="errors.has('confirm password')" class="invalid-feedback">{{ errors.first('confirm password') }}</span>
                             </div>
-
+                            
                             <div class="form-group col-md-6 text-left">
                                 <label>Email</label>
                                 <input v-model="formUserData.email" name="email" v-validate="'required|email'" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('email') }" type="text" aria-describedby="emailHelp" placeholder="Enter email">
@@ -78,7 +78,7 @@
                             </div>
                             <div class="form-group col-md-6 text-left">
                                 <label>Role</label>
-                                <!-- <input v-model="formUserData.role" type="text" name="role" v-validate="'required'" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('role') }" placeholder="Role..."> -->  
+<!-- <input v-model="formUserData.role" type="text" name="role" v-validate="'required'" data-vv-delay="100" :class="{'form-control': true, 'is-invalid': errors.has('role') }" placeholder="Role..."> -->  
                                 <!-- :class="{'is-invalid': errors.has('role') }" -->
                                 <v-select  name="role" 
                                 v-model="formUserData.role"  
@@ -88,12 +88,24 @@
                                 ></v-select> 
                                 <div v-show="errors.has('role')" class="invalid-text">{{ errors.first('role') }}</div>
                             </div>
+
+                             <div  v-if="formUserData.role=='Subordinate'" class="form-group col-md-6 text-left">
+                                <label>Supervisor</label>
+                                <v-select  name="supervisor" 
+                                v-model="formUserData.supervisor"  
+                                :options="supList"
+                                :class="{'invalid-dropdown': errors.has('supervisor') }"
+                                v-validate="''" data-vv-delay="100" 
+                                ></v-select> 
+                                <div v-show="errors.has('role')" class="invalid-text">{{ errors.first('supervisor') }}</div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-primary">Confirm</button>
                         <button type="button" class="btn btn-outline-secondary" @click="onCancel" data-dismiss="modal">Cancel</button>
                     </div>
+                    <!-- {{supList}} -->
                 </form>
             </div>
         </div>
@@ -102,10 +114,15 @@
 <script>
 import $ from "jquery";
 import adminService from "../../services/admin";
+import userService from '../../services/user';
+import _ from 'lodash'
+
 export default {
   props: ["formUserData", "onAddUser"],
   data() {
     return {
+        supList:[],
+        supListOrigin:[]
     //     options: [
     //   'valid@gmail.com',
     //   'invalid email address',
@@ -115,6 +132,11 @@ export default {
   },
   mounted() {
     console.log(this.formUserData, "check");
+    userService.getSupervisor().then(res=>{
+        this.supListOrigin = _.clone(res)
+        this.supList = res.map(i=> String(i.id+" "+i.fname+" "+i.lname) )
+        console.log('supbList',this.supList)
+    })
   },
   methods: {
     onCancel() {
@@ -140,6 +162,9 @@ export default {
             line: this.formUserData.line,
             department: this.formUserData.department,
             role: this.formUserData.role
+          }
+          if(payload.role==='Subordinate'){
+              payload['supervisor_id'] = this.formUserData.supervisor[0]
           }
           const authorization = `${localStorage.getItem('token_type')} ${localStorage.getItem('access_token')}`
           const headers = {
