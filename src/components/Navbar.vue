@@ -55,6 +55,12 @@
           </div>
           <div class="modal-body">
             <img :src="getImage()" alt="Image not found" class="rounded" width="200" height="200">
+          <div class="otp">
+              <button class="btn btn-outline-primary" style="margin-top:16px;" v-on:click="getOTP($event)" id="optdiv">Get OTP</button>
+          </div>
+           <div class="otp">
+              Your otp is {{otp}}
+           </div>
           </div>
           <div class="modal-footer">
           <!-- <button type="submit" class="btn btn-outline-primary">Confirm</button> -->
@@ -68,6 +74,11 @@
 </template>
 
 <style lang="scss" scoped>
+.opt{
+  display: flex;
+  justify-content: center;
+  text-align: center; 
+}
 button.close {
   display: none !important;
 }
@@ -93,12 +104,19 @@ a {
 import Store from "../stores";
 import userService from "../services/user";
 import LeaveService from "../services/leave";
+import axios from '../services/axios';
 export default {
   data() {
     return {
       userProfile: {},
-      notifications: {}
+      notifications: {},
+      otp: '...'
     };
+  },
+  computed: {
+    // opt () {
+    //   this.opt = userService.getOTP();
+    // }
   },
   methods: {
       onCancel() {
@@ -126,6 +144,13 @@ export default {
       if (this.userProfile.role == "Administrator") {
         return "../../../static/assets/img/line-admin.png";
       }
+    },
+    getOTP(event){
+      let otpdiv = event.currentTarget;
+      // let otpdiv = document.getElementById('otpdiv');
+  userService.getOTP().then(res=>{
+       this.otp = res.opt
+     })
     },
     checkStatus() {
       const token = userService.getAccessToken();
