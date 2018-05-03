@@ -15,8 +15,8 @@
           </thead>
           <tbody>
             <tr v-for="leave in myLeaves" :key="leave.id">
-              <th scope="row">{{ leave.start }}</th>
-              <td>{{ leave.substitution_id }}</td>
+              <td scope="row">{{ leave.start }}</td>
+              <td>{{ leave.leaver_id }}</td>
             </tr>
           </tbody>
         </table>
