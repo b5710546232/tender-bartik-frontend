@@ -11,7 +11,8 @@
             <tr>
               <th scope="col">Start Date</th>
               <th scope="col">End Date</th>
-              <th scope="col">Subordinator</th>
+              <th scope="col">Subordinator ID</th>
+              <th scope="col">Type</th>
               <th scope="col">✔</th>
               <th scope="col">✘</th>
             </tr>
@@ -21,6 +22,7 @@
               <th>{{ request.start }}</th>
               <th scope="row">{{ request.end }}</th>
               <td>{{ request.substitution_id }}</td>
+              <td>{{ request.type }}</td>
               <td><button type="button" class="btn btn-success" @click="confirmRequest(request.id)">Confirm</button></td>
               <td><button type="button" class="btn btn-danger" @click="rejectRequest(request.id)">Reject</button></td>
             </tr>

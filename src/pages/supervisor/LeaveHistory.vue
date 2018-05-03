@@ -9,14 +9,20 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Subordinator</th>
+              <th scope="col">Start</th>
+              <th scope="col">End</th>
+              <th scope="col">Subordinator ID</th>
+              <th scope="col">Type</th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="leave in myLeaves" :key="leave.id">
               <th scope="row">{{ leave.start }}</th>
-              <td>{{ leave.substitution_id }}</td>
+              <th scope="row">{{ leave.end }}</th>
+              <td>{{ leave.leaver_id }}</td>
+              <td>{{ leave.type }}</td>
+              <td>{{ leave.status }}</td>
             </tr>
           </tbody>
         </table>
