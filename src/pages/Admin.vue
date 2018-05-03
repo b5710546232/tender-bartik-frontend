@@ -60,7 +60,8 @@ export default {
       
     },
     print(){
-      const  yourURL  = 'http://localhost:8080/#/print'
+      let host = location.host
+      const  yourURL  = `http://${host}/#/print`
        var w = window.open(yourURL)
     w.focus()
     },
