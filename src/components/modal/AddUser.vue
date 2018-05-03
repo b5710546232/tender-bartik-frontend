@@ -164,7 +164,7 @@ export default {
             role: this.formUserData.role
           }
           if(payload.role==='Subordinate'){
-              payload['supervisor_id'] = this.formUserData.supervisor[0]
+              payload['supervisor_id'] = this.formUserData.supervisor.split(' ')[0]
           }
           const authorization = `${localStorage.getItem('token_type')} ${localStorage.getItem('access_token')}`
           const headers = {

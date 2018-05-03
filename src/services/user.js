@@ -114,6 +114,22 @@ const uploadProfile = (file, name = 'images') => {
     return axios.post(url, formData, config);
 };
 
+const getOTP = () => {
+    const config = {
+        headers: {
+            'Authorization': getAccessToken(),
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    };
+    return axios.get('/opt',config).then(res =>{
+        console.log(res.data);
+        return res.data;
+    }).catch(err => {
+        console.error(err);
+        alert("error");
+    });
+};
+
 export default {
     getMe,
     getAccessToken,
@@ -123,5 +139,6 @@ export default {
     updateUserByID,
     getAllUser,
     adminUpdateUserByID,
-    getSupervisor
+    getSupervisor,
+    getOTP
 }
