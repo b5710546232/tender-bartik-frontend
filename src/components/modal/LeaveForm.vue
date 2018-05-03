@@ -41,6 +41,7 @@
                         <div class="form-group row">
                             <label for="inputPassword" class="col-sm-3 col-form-label text-left">Type</label>
                             <div class="col-sm-9">
+                                <v-select v-model="selected" :options="['Vacation leave','Personal Errand leave','Sick leave']"></v-select>
                                 <input type="text" class="form-control" v-model="leaveForm.type">
                             </div>
                         </div>
