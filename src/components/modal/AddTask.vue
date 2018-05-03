@@ -1,5 +1,8 @@
 <template>
     <div ref="addTaskModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="backdrop" v-if="isLoading">
+        <atom-spinner class="spinner" :animation-duration="1000" :size="150" :color="'#9FFD8D'" />
+      </div>
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form @submit.prevent="requestLeave">
@@ -55,6 +58,7 @@ import userService from "../../services/user";
 import leaveService from "../../services/leave";
 import subService from "../../services/sub";
 import leave from "../../services/leave";
+import { AtomSpinner } from "epic-spinners"
 
 import moment from 'moment-timezone'
 import _ from 'lodash'
@@ -68,7 +72,8 @@ export default {
         status: "",
         description: "",
         assignee: ""
-      }
+      },
+      isLoading: false
     };
   },
   mounted() {
@@ -84,6 +89,7 @@ export default {
       const headers = userService.getHeaders()
       let form = _.clone(this.taskForm)
       console.log(form);
+      this.isLoading = true
       let payload = {
         name: form.name,
         status: form.status,
@@ -94,6 +100,7 @@ export default {
         taskService.postTask(payload,headers).then(res=>{
             console.log(res)
             $(this.$refs["addTaskModal"]).modal("hide");
+            this.isLoading = false
         }).catch(err=>{
             console.error(err)
         })
