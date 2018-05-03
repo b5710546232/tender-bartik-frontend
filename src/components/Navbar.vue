@@ -55,7 +55,9 @@
           </div>
           <div class="modal-body">
             <img :src="getImage()" alt="Image not found" class="rounded" width="200" height="200">
-            <button class="btn btn-outline-primary" v-on:click="getOTP($event)" id="optdiv">Get OTP</button>`
+          <div class="otp">
+              <button class="btn btn-outline-primary" style="margin-top:16px;" v-on:click="getOTP($event)" id="optdiv">Get OTP</button>
+          </div>
            <div class="otp">
               Your otp is {{otp}}
            </div>
